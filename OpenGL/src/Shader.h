@@ -8,7 +8,7 @@ public:
 	unsigned int m_ID; // Program
 
 	// Constructor - reads and builds shader
-	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
+	Shader(const char* vertexPath, const char* fragmentPath);
 
 	// Use / Activate shader
 	void Use();
@@ -22,7 +22,4 @@ private:
 	unsigned int CreateShader(const std::string& vertexPath, const std::string& fragmentPath);
 	// Compile shader
 	unsigned int CompileShader(unsigned int type, const std::string& src);
-
-	std::string vertexShaderSource;
-	std::string fragmentShaderSource;
 };

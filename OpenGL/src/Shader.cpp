@@ -1,8 +1,11 @@
 #include "Shader.h"
 
-Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
+Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
 	// Retrieve Vertex/Fragment shader source code from it's file
+	std::string vertexShaderSource;
+	std::string fragmentShaderSource;
+
 	std::ifstream vertexFile;
 	std::ifstream fragmentFile;
 	// Set exceptions
