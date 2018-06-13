@@ -14,9 +14,7 @@ public:
 	void Use();
 	void Delete();
 
-	// Uniform function
-	void SetBool(const std::string& name, bool value) const;
-	void SetInt(const std::string& name, int value) const;
+	// Uniform functions
 	void SetFloat(const std::string& name, float v1, float v2, float v3, float va) const; // RGBA
 
 private:

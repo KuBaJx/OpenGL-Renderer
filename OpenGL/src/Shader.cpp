@@ -18,7 +18,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		vertexFile.open(vertexPath);
 		fragmentFile.open(fragmentPath);
 		std::stringstream vShaderStream, fShaderStream;
-		// Insert contents into stream
+		// Push contents into stream
 		vShaderStream << vertexFile.rdbuf();
 		fShaderStream << fragmentFile.rdbuf();
 		// Close files
@@ -96,16 +96,6 @@ void Shader::Use()
 void Shader::Delete()
 {
 	glDeleteProgram(m_ID);
-}
-
-void Shader::SetBool(const std::string& name, bool value) const
-{
-	glUniform1i(glGetUniformLocation(m_ID, name.c_str()), (int)value);
-}
-
-void Shader::SetInt(const std::string& name, int value) const
-{
-	glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
 }
 
 void Shader::SetFloat(const std::string& name, float v1, float v2, float v3, float va) const
