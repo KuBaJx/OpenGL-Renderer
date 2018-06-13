@@ -12,6 +12,8 @@ public:
 
 	// Use / Activate shader
 	void Use();
+	void Delete();
+
 	// Uniform function
 	void SetBool(const std::string& name, bool value) const;
 	void SetInt(const std::string& name, int value) const;

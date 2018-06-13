@@ -38,7 +38,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
 unsigned int Shader::CompileShader(unsigned int type, const std::string& src)
 {
-	int success, shaderType;
+	int success;
 	char msg[1024];
 
 	unsigned int id = glCreateShader(type);
@@ -49,18 +49,9 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& src)
 	glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		// Figure out shader type
-		glGetShaderiv(id, GL_SHADER_TYPE, &shaderType);
-
 		glGetShaderInfoLog(id, sizeof(msg), nullptr, msg);
-		if (shaderType == GL_VERTEX_SHADER)
-		{
-			std::cerr << "ERROR::VERTEX::SHADER::COMPILATION::FAILED!\n" << msg << std::endl;
-		}
-		if (shaderType == GL_FRAGMENT_SHADER)
-		{
-			std::cerr << "ERROR::FRAGMENT::SHADER::COMPILATION::FAILED!\n" << msg << std::endl;
-		}
+		std::cout << "ERROR::" << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << "::SHADER::COMPILATION::FAILED!\n" << msg << std::endl;
+		glDeleteShader(id);
 		return -1;
 	}
 
@@ -90,7 +81,7 @@ unsigned int Shader::CreateShader(const std::string& vertexPath, const std::stri
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING::FAILED!\n" << msg << std::endl;
 	}
 	
-	// Delete shaders since we don't need them, because they're already linked
+	// Delete shaders since we don't need them, because they're already linked into our program
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
@@ -100,6 +91,11 @@ unsigned int Shader::CreateShader(const std::string& vertexPath, const std::stri
 void Shader::Use()
 {
 	glUseProgram(m_ID);
+}
+
+void Shader::Delete()
+{
+	glDeleteProgram(m_ID);
 }
 
 void Shader::SetBool(const std::string& name, bool value) const
