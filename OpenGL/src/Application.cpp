@@ -1,14 +1,8 @@
 #include "StdAfx.h"
 #include "Shader.h"
 
+// ------------------------ // 
 #define DEBUG
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void ProcessInput(GLFWwindow* window);
-
-const unsigned int sWidth = 800;
-const unsigned int sHeight = 600;
-
 // Assert
 #define ASSERT(x) if(!(x)) __debugbreak(); //__debugbreak - MSVC specific -> puts breakpoint when assert.
 // 1. -> Clear all errors, 2. -> Log error into console (x) is parameter, in this case function, method, we want to check for errors
@@ -36,6 +30,13 @@ static bool GLLogCall(const char* function, const char* file, int line)
 	}
 	return true;
 }
+// ------------------------ // 
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void ProcessInput(GLFWwindow* window);
+
+const unsigned int sWidth = 800;
+const unsigned int sHeight = 600;
 
 
 int main()
