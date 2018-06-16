@@ -14,13 +14,13 @@
 	#define GLCall(x)
 #endif
 
-// Clear all errors before logging another ones
+// Clears all errors before logging another ones
 static void GLClearError()
 {
 	while (glGetError());
 }
 
-// Returs current errors
+// Returns current errors
 static bool GLLogCall(const char* function, const char* file, int line)
 {
 	while (GLenum error = glGetError())
