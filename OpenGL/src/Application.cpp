@@ -79,9 +79,9 @@ int main()
 	};
 
 	unsigned int buffer; // Buffer ID
-	glGenBuffers(1, &buffer); // Vygeneruje buffer a referecuje ho do premennej buffer
-	glBindBuffer(GL_ARRAY_BUFFER, buffer); // Prideli array buffer to premmnej buffer
-	glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(buffer), positions, GL_STATIC_DRAW); // 
+	glGenBuffers(1, &buffer); // Generate vertex array buffer
+	glBindBuffer(GL_ARRAY_BUFFER, buffer); // bind array buffer to id
+	glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(buffer), positions, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);

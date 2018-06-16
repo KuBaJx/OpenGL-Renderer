@@ -83,7 +83,7 @@ unsigned int Shader::CreateShader(const std::string& vertexPath, const std::stri
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING::FAILED!\n" << msg << std::endl;
 	}
 	
-	// Delete shaders since we don't need them, because they're already linked into our program
+	// Delete shaders since we don't need them, because they're already linked into program
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
