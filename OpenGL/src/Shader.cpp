@@ -2,6 +2,8 @@
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
+	m_ID = 0;
+
 	// Retrieve Vertex/Fragment shader source code from it's file
 	std::string vertexShaderSource;
 	std::string fragmentShaderSource;

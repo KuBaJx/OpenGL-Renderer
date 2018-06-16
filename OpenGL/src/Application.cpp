@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "Shader.h"
+#include "FrameTime.h"
 
 // ------------------------ // 
 #define DEBUG
@@ -78,23 +79,26 @@ int main()
 	};
 
 	unsigned int buffer; // Buffer ID
-	glGenBuffers(1, &buffer); // Vygeneruje buffer a referecuje ho do premenneh buffer
+	glGenBuffers(1, &buffer); // Vygeneruje buffer a referecuje ho do premennej buffer
 	glBindBuffer(GL_ARRAY_BUFFER, buffer); // Prideli array buffer to premmnej buffer
 	glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(buffer), positions, GL_STATIC_DRAW); // 
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);
 
+	// IndexBufferObject
 	unsigned int ibo;
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
 	Shader shader("res/shaders/shader.vs", "res/shaders/shader.fs");
+	FrameTime fpsTimer;
 
 	// LOOP
 	while (!glfwWindowShouldClose(window))
 	{
+		fpsTimer.GetFrameTime();
 		ProcessInput(window);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -102,7 +106,7 @@ int main()
 		shader.SetFloat("u_Color", 0.5f, 0.5f, 1.0f, 1.0f);
 
 		//glDrawArrays(GL_TRIANGLES, 0, 6); --> not using IndexBuffer
-		GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above
+		GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

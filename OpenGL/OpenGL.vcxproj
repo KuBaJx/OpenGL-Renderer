@@ -151,9 +151,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\FrameTime.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FrameTime.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\StdAfx.h" />
   </ItemGroup>
