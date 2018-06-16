@@ -31,7 +31,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\shader.fs" />
-    <None Include="src\Shaders\shader.vs" />
+    <None Include="res\shaders\shader.vs" />
+    <None Include="res\shaders\shader.fs" />
+    <None Include="res\shaders\testshader.vs" />
   </ItemGroup>
 </Project>

@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -105,7 +105,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -139,7 +139,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -158,8 +158,9 @@
     <ClInclude Include="src\StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\shader.fs" />
-    <None Include="src\Shaders\shader.vs" />
+    <None Include="res\shaders\shader.fs" />
+    <None Include="res\shaders\shader.vs" />
+    <None Include="res\shaders\testshader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

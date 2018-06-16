@@ -1,12 +1,42 @@
 #include "StdAfx.h"
-
 #include "Shader.h"
+
+#define DEBUG
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void ProcessInput(GLFWwindow* window);
 
 const unsigned int sWidth = 800;
 const unsigned int sHeight = 600;
+
+// Assert
+#define ASSERT(x) if(!(x)) __debugbreak(); //__debugbreak - MSVC specific -> puts breakpoint when assert.
+// 1. -> Clear all errors, 2. -> Log error into console (x) is parameter, in this case function, method, we want to check for errors
+
+#ifdef DEBUG // Available in debug mode..
+//#x - turns function to string (get function name), __FILE__ -> Gets filename, __LINE__ gets line where error occured
+	#define GLCall(x)GLClearError();x;ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+#else
+	#define GLCall(x)
+#endif
+
+// Clear all errors before logging another ones
+static void GLClearError()
+{
+	while (glGetError());
+}
+
+// Returs current errors
+static bool GLLogCall(const char* function, const char* file, int line)
+{
+	while (GLenum error = glGetError())
+	{
+		std::cout << "[OpenGL Error]: (" << error << ") on line: (" << line << ") --> " << function << "\nFile: " << file << std::endl;
+		return false;
+	}
+	return true;
+}
+
 
 int main()
 {
@@ -36,18 +66,30 @@ int main()
 	float positions[] = {
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f
+		 0.5f,  0.5f, 0.0f,
+	    -0.5f,  0.5f, 0.0f
+	};
+
+	// Index buffer
+	unsigned int indices[] = {
+		0, 1, 2, // 1st triangle
+		2, 3, 0	// 2nd triangle
 	};
 
 	unsigned int buffer; // Buffer ID
 	glGenBuffers(1, &buffer); // Vygeneruje buffer a referecuje ho do premenneh buffer
 	glBindBuffer(GL_ARRAY_BUFFER, buffer); // Prideli array buffer to premmnej buffer
-	glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(buffer), positions, GL_STATIC_DRAW); // 
+	glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(buffer), positions, GL_STATIC_DRAW); // 
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);
 
-	Shader shader("src/shaders/shader.vs", "src/shaders/shader.fs");
+	unsigned int ibo;
+	glGenBuffers(1, &ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+
+	Shader shader("res/shaders/shader.vs", "res/shaders/shader.fs");
 
 	// LOOP
 	while (!glfwWindowShouldClose(window))
@@ -58,7 +100,8 @@ int main()
 		shader.Use();
 		shader.SetFloat("u_Color", 0.5f, 0.5f, 1.0f, 1.0f);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawArrays(GL_TRIANGLES, 0, 6); --> not using IndexBuffer
+		GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
