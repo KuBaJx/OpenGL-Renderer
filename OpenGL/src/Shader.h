@@ -5,8 +5,6 @@
 class Shader
 {
 public:
-	unsigned int m_ID; // Program
-
 	// Constructor - reads and builds shader
 	Shader(const char* vertexPath, const char* fragmentPath);
 
@@ -22,4 +20,7 @@ private:
 	unsigned int CreateShader(const std::string& vertexPath, const std::string& fragmentPath);
 	// Compile shader
 	unsigned int CompileShader(unsigned int type, const std::string& src);
+
+private:
+	unsigned int m_ID; // Shader program ID
 };

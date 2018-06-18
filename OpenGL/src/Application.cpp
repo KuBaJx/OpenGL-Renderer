@@ -2,43 +2,11 @@
 #include "Shader.h"
 #include "FrameTime.h"
 
-// ------------------------ // 
-#define DEBUG
-// Assert
-#define ASSERT(x) if(!(x)) __debugbreak(); //__debugbreak - MSVC specific -> puts breakpoint when assert.
-// 1. -> Clear all errors, 2. -> Log error into console (x) is parameter, in this case function, method, we want to check for errors
-
-#ifdef DEBUG // Available in debug mode..
-//#x - turns function to string (get function name), __FILE__ -> Gets filename, __LINE__ gets line where error occured
-	#define GLCall(x)GLClearError();x;ASSERT(GLLogCall(#x, __FILE__, __LINE__))
-#else
-	#define GLCall(x)
-#endif
-
-// Clears all errors before logging another ones
-static void GLClearError()
-{
-	while (glGetError());
-}
-
-// Returns current errors
-static bool GLLogCall(const char* function, const char* file, int line)
-{
-	while (GLenum error = glGetError())
-	{
-		std::cout << "[OpenGL Error]: (" << error << ") on line: (" << line << ") --> " << function << "\nFile: " << file << std::endl;
-		return false;
-	}
-	return true;
-}
-// ------------------------ // 
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void ProcessInput(GLFWwindow* window);
 
 const unsigned int sWidth = 800;
 const unsigned int sHeight = 600;
-
 
 int main()
 {
@@ -65,6 +33,8 @@ int main()
 
 	std::cout << "OpenGL version: [" << glGetString(GL_VERSION) << "]" << std::endl;
 
+	glfwSwapInterval(1); // VSYNC
+
 	float positions[] = {
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
@@ -78,14 +48,20 @@ int main()
 		2, 3, 0	// 2nd triangle
 	};
 
+	// VertexBufferObject
+	unsigned int vao;
+	GLCall(glGenVertexArrays(1, &vao));
+	GLCall(glBindVertexArray(vao));
+
 	unsigned int buffer; // Buffer ID
 	glGenBuffers(1, &buffer); // Generate vertex array buffer
 	glBindBuffer(GL_ARRAY_BUFFER, buffer); // bind array buffer to id
-	glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(buffer), positions, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 4 * 3 * sizeof(buffer), positions, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);
-
+	// Links buffer with VAO - so we can use multiple buffers
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	
 	// IndexBufferObject
 	unsigned int ibo;
 	glGenBuffers(1, &ibo);
@@ -102,8 +78,8 @@ int main()
 		ProcessInput(window);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		shader.Use();
-		shader.SetFloat("u_Color", 0.5f, 0.5f, 1.0f, 1.0f);
+		GLCall(shader.Use());
+		GLCall(shader.SetFloat("u_Color", 0.3f, 0.5f, 1.0f, 1.0f));
 
 		//glDrawArrays(GL_TRIANGLES, 0, 6); --> not using IndexBuffer
 		GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above

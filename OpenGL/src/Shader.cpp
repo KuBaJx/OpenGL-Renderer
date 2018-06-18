@@ -102,5 +102,7 @@ void Shader::Delete()
 
 void Shader::SetFloat(const std::string& name, float v1, float v2, float v3, float va) const
 {
-	glUniform4f(glGetUniformLocation(m_ID, name.c_str()), v1, v2, v3, va);
+	int location = glGetUniformLocation(m_ID, name.c_str());
+	ASSERT(location != -1);
+	glUniform4f(location, v1, v2, v3, va);
 }
