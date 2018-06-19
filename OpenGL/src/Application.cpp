@@ -6,7 +6,7 @@
 #include "Shader.h"
 #include "FrameTime.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void OnWindowResize(GLFWwindow* window, int width, int height);
 void ProcessInput(GLFWwindow* window);
 
 const unsigned int sWidth = 800;
@@ -27,7 +27,7 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 
-	glfwSetWindowSizeCallback(window, framebuffer_size_callback);
+	glfwSetWindowSizeCallback(window, OnWindowResize);
 
 	if (!glewInit() == GLEW_OK)
 	{
@@ -92,7 +92,7 @@ int main()
 }
 
 // Window resizing handler
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void OnWindowResize(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
