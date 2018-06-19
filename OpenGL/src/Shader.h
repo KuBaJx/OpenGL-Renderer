@@ -22,5 +22,5 @@ private:
 	unsigned int CompileShader(unsigned int type, const std::string& src);
 
 private:
-	unsigned int m_ID; // Shader program ID
+	unsigned int m_RendererID; // Shader program ID
 };

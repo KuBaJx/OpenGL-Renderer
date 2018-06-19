@@ -1,4 +1,8 @@
 #include "StdAfx.h"
+
+#include "renderer/VertexBuffer.h"
+#include "renderer/IndexBuffer.h"
+
 #include "Shader.h"
 #include "FrameTime.h"
 
@@ -53,22 +57,14 @@ int main()
 	GLCall(glGenVertexArrays(1, &vao));
 	GLCall(glBindVertexArray(vao));
 
-	unsigned int buffer; // Buffer ID
-	glGenBuffers(1, &buffer); // Generate vertex array buffer
-	glBindBuffer(GL_ARRAY_BUFFER, buffer); // bind array buffer to id
-	glBufferData(GL_ARRAY_BUFFER, 4 * 3 * sizeof(buffer), positions, GL_STATIC_DRAW);
-
+	VertexBuffer* vertexBuffer = new VertexBuffer(positions, sizeof(positions));
+	IndexBuffer*  indexBuffer = new IndexBuffer(indices, sizeof(indices));
+	
 	glEnableVertexAttribArray(0);
 	// Links buffer with VAO - so we can use multiple buffers
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	
-	// IndexBufferObject
-	unsigned int ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
-
-	Shader shader("res/shaders/shader.vs", "res/shaders/shader.fs");
+	Shader* shader = new Shader("res/shaders/shader.vs", "res/shaders/shader.fs");
 	FrameTime fpsTimer;
 
 	// LOOP
@@ -78,8 +74,8 @@ int main()
 		ProcessInput(window);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		GLCall(shader.Use());
-		GLCall(shader.SetFloat("u_Color", 0.3f, 0.5f, 1.0f, 1.0f));
+		GLCall(shader->Use());
+		GLCall(shader->SetFloat("u_Color", 0.3f, 0.5f, 1.0f, 1.0f));
 
 		//glDrawArrays(GL_TRIANGLES, 0, 6); --> not using IndexBuffer
 		GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above
@@ -88,7 +84,9 @@ int main()
 		glfwPollEvents();
 	}
 
-	shader.Delete();
+	shader->Delete();
+	vertexBuffer->Delete();
+	indexBuffer->Delete();
 	glfwTerminate();
 	return 0;
 }

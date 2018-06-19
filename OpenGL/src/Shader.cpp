@@ -2,8 +2,6 @@
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
-	m_ID = 0;
-
 	// Retrieve Vertex/Fragment shader source code from it's file
 	std::string vertexShaderSource;
 	std::string fragmentShaderSource;
@@ -65,21 +63,21 @@ unsigned int Shader::CreateShader(const std::string& vertexPath, const std::stri
 	int success;
 	char msg[1024];
 
-	m_ID = glCreateProgram();
+	m_RendererID = glCreateProgram();
 	unsigned int vertexShader = CompileShader(GL_VERTEX_SHADER, vertexPath);
 	unsigned int fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentPath);
 	// Attach shaders to our program
-	glAttachShader(m_ID, vertexShader);
-	glAttachShader(m_ID, fragmentShader);
+	glAttachShader(m_RendererID, vertexShader);
+	glAttachShader(m_RendererID, fragmentShader);
 	// Link shaders 
-	glLinkProgram(m_ID);
+	glLinkProgram(m_RendererID);
 	// Validate and check for errors
-	glValidateProgram(m_ID);
+	glValidateProgram(m_RendererID);
 
-	glGetProgramiv(m_ID, GL_LINK_STATUS, &success);
+	glGetProgramiv(m_RendererID, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(m_ID, sizeof(msg), nullptr, msg);
+		glGetProgramInfoLog(m_RendererID, sizeof(msg), nullptr, msg);
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING::FAILED!\n" << msg << std::endl;
 	}
 	
@@ -87,22 +85,22 @@ unsigned int Shader::CreateShader(const std::string& vertexPath, const std::stri
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-	return m_ID;
+	return m_RendererID;
 }
 
 void Shader::Use()
 {
-	glUseProgram(m_ID);
+	glUseProgram(m_RendererID);
 }
 
 void Shader::Delete()
 {
-	glDeleteProgram(m_ID);
+	glDeleteProgram(m_RendererID);
 }
 
 void Shader::SetFloat(const std::string& name, float v1, float v2, float v3, float va) const
 {
-	int location = glGetUniformLocation(m_ID, name.c_str());
+	int location = glGetUniformLocation(m_RendererID, name.c_str());
 	ASSERT(location != -1);
 	glUniform4f(location, v1, v2, v3, va);
 }

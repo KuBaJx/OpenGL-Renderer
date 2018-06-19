@@ -20,7 +20,7 @@ void FrameTime::GetFrameTime()
 	if (m_currentTime - m_lastTime >= 1.0) // If last log was more than 1 sec ago
 	{
 		// print and reset timer
-		std::cout << 1000.0 / (double)m_numFrames << " ms/frame" << std::endl;
+		std::cout << "\r" << 1000.0 / (double)m_numFrames << " ms/frame" << std::flush;
 		m_numFrames = 0;
 		m_lastTime += 1.0;
 	}
