@@ -40,6 +40,6 @@ public:
 		m_Elements.push_back({ GL_UNSIGNED_INT, count, false }); // Type, Count, Normalized
 	}
 
-	inline std::vector<VertexBufferElements> GetVertexBufferElements() const { return m_Elements } // fix to return const&
+	inline std::vector<VertexBufferElements> GetVertexBufferElements() const { return m_Elements; } // fix to return const&
 	inline unsigned int GetStride() const { return m_Stride; }
 };
