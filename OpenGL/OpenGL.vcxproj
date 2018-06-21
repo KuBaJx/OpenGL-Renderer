@@ -155,7 +155,9 @@
     <ClCompile Include="src\misc\Assert.cpp" />
     <ClCompile Include="src\renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\renderer\Renderer.cpp" />
+    <ClCompile Include="src\renderer\VertexArray.cpp" />
     <ClCompile Include="src\renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\renderer\VertexBufferLayout.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +165,9 @@
     <ClInclude Include="src\misc\Assert.h" />
     <ClInclude Include="src\renderer\IndexBuffer.h" />
     <ClInclude Include="src\renderer\Renderer.h" />
+    <ClInclude Include="src\renderer\VertexArray.h" />
     <ClInclude Include="src\renderer\VertexBuffer.h" />
+    <ClInclude Include="src\renderer\VertexBufferLayout.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\StdAfx.h" />
   </ItemGroup>
