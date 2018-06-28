@@ -2,6 +2,8 @@
 
 #include "renderer/VertexBuffer.h"
 #include "renderer/IndexBuffer.h"
+#include "renderer/VertexArray.h"
+#include "renderer/VertexBufferLayout.h"
 
 #include "Shader.h"
 #include "FrameTime.h"
@@ -52,41 +54,43 @@ int main()
 		2, 3, 0	// 2nd triangle
 	};
 
-	// VertexBufferObject
-	unsigned int vao;
-	GLCall(glGenVertexArrays(1, &vao));
-	GLCall(glBindVertexArray(vao));
-
-	VertexBuffer* vertexBuffer = new VertexBuffer(positions, sizeof(positions));
-	IndexBuffer*  indexBuffer = new IndexBuffer(indices, sizeof(indices));
-	
-	glEnableVertexAttribArray(0);
-	// Links buffer with VAO - so we can use multiple buffers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
-	
-	Shader* shader = new Shader("res/shaders/shader.vs", "res/shaders/shader.fs");
-	FrameTime fpsTimer;
-
-	// LOOP
-	while (!glfwWindowShouldClose(window))
+	// Additional scope for proper destruction of objects
 	{
-		fpsTimer.GetFrameTime();
-		ProcessInput(window);
-		glClear(GL_COLOR_BUFFER_BIT);
+		VertexBuffer vertexBuffer(positions, sizeof(positions));
+		IndexBuffer  indexBuffer(indices, sizeof(indices));
+	
+		VertexBufferLayout vertexBufferLayout;
+		vertexBufferLayout.Push<float>(3); // How many elements per one vertex
+	
+		VertexArray vertexArray;
+		vertexArray.AddBuffer(vertexBuffer, vertexBufferLayout);
+	
+		Shader shader("res/shaders/shader.vs", "res/shaders/shader.fs");
+		FrameTime fpsTimer;
 
-		GLCall(shader->Use());
-		GLCall(shader->SetFloat("u_Color", 0.3f, 0.5f, 1.0f, 1.0f));
+		// LOOP
+		while (!glfwWindowShouldClose(window))
+		{
+			fpsTimer.GetFrameTime();
+			ProcessInput(window);
+			glClear(GL_COLOR_BUFFER_BIT);
 
-		//glDrawArrays(GL_TRIANGLES, 0, 6); --> not using IndexBuffer
-		GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above
+			GLCall(shader.Use());
+			GLCall(shader.SetFloat("u_Color", 0.3f, 0.5f, 1.0f, 1.0f));
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+			vertexArray.BindArray();
+			indexBuffer.Bind();
+
+			//glDrawArrays(GL_TRIANGLES, 0, 6); --> not using IndexBuffer
+			GLCall(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr)); // using IndexBuffer, last property can be null since we already bound IndexBuffer above
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+		}
+		vertexArray.UnbindArray();
 	}
+	// ~Additional scope
 
-	shader->Delete();
-	vertexBuffer->Delete();
-	indexBuffer->Delete();
 	glfwTerminate();
 	return 0;
 }

@@ -9,8 +9,6 @@ public:
 	IndexBuffer(const unsigned int* data, unsigned int size);
 	~IndexBuffer();
 
-	void Delete() const;
-
 	void Bind() const;
 	void Unbind() const;
 
