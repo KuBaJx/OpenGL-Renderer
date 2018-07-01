@@ -36,6 +36,11 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	CreateShader(vertexShaderSource, fragmentShaderSource);
 }
 
+Shader::~Shader()
+{
+	GLCall(glDeleteProgram(m_RendererID));
+}
+
 unsigned int Shader::CompileShader(unsigned int type, const std::string& src)
 {
 	int success;
@@ -88,19 +93,39 @@ unsigned int Shader::CreateShader(const std::string& vertexPath, const std::stri
 	return m_RendererID;
 }
 
-void Shader::Use()
+void Shader::Bind() const
 {
-	glUseProgram(m_RendererID);
+	GLCall(glUseProgram(m_RendererID));
 }
 
-void Shader::Delete()
+void Shader::Unbind() const
 {
-	glDeleteProgram(m_RendererID);
+	GLCall(glUseProgram(0));
 }
 
-void Shader::SetFloat(const std::string& name, float v1, float v2, float v3, float va) const
+void Shader::SetUniform4f(const std::string& name, float v1, float v2, float v3, float va)
 {
-	int location = glGetUniformLocation(m_RendererID, name.c_str());
-	ASSERT(location != -1);
-	glUniform4f(location, v1, v2, v3, va);
+	GLCall(glUniform4f(GetUniformLocation(name), v1, v2, v3, va));
+}
+
+unsigned int Shader::GetUniformLocation(const std::string& name)
+{
+	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+	{
+		return m_UniformLocationCache[name];
+	}
+	else
+	{
+		GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
+		if (location == -1)
+		{
+			std::cout << "[WARNING] - Uniform " << name << " has not been found!" << std::endl;
+		}
+		else
+		{
+			m_UniformLocationCache[name] = location;
+			return location;
+		}
+	}
+
 }

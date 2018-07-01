@@ -10,6 +10,7 @@
 
 void OnWindowResize(GLFWwindow* window, int width, int height);
 void ProcessInput(GLFWwindow* window);
+float ColorModifier();
 
 const unsigned int sWidth = 800;
 const unsigned int sHeight = 600;
@@ -68,6 +69,8 @@ int main()
 		Shader shader("res/shaders/shader.vs", "res/shaders/shader.fs");
 		FrameTime fpsTimer;
 
+
+
 		// LOOP
 		while (!glfwWindowShouldClose(window))
 		{
@@ -75,8 +78,12 @@ int main()
 			ProcessInput(window);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			GLCall(shader.Use());
-			GLCall(shader.SetFloat("u_Color", 0.3f, 0.5f, 1.0f, 1.0f));
+			float rValue = ColorModifier() + 0.2f;
+			float gValue = ColorModifier();
+			float bValue = ColorModifier() - 1.5f;
+
+			GLCall(shader.Bind());
+			shader.SetUniform4f("u_Color", rValue, gValue, bValue, 1.0f);
 
 			vertexArray.BindArray();
 			indexBuffer.Bind();
@@ -107,4 +114,12 @@ void ProcessInput(GLFWwindow* window)
 	{
 		glfwSetWindowShouldClose(window, true);
 	}
+}
+
+float ColorModifier()
+{
+	float timeValue = glfwGetTime();
+	float outValue = (sin(timeValue) / 2) + 0.5f;
+
+	return outValue;
 }
