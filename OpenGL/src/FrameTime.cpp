@@ -1,5 +1,4 @@
 #include "FrameTime.h"
-#include "StdAfx.h"
 
 FrameTime::FrameTime()
 {

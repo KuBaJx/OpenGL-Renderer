@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 
 #include "renderer/VertexBuffer.h"
 #include "renderer/IndexBuffer.h"
@@ -30,7 +29,8 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 
-	glfwSetWindowSizeCallback(window, OnWindowResize);
+	// Proper resizing - fixed 
+	glfwSetFramebufferSizeCallback(window, OnWindowResize);
 
 	if (!glewInit() == GLEW_OK)
 	{
@@ -98,6 +98,7 @@ int main()
 	}
 	// ~Additional scope
 
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
 }

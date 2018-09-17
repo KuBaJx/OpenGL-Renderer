@@ -1,6 +1,5 @@
 #pragma once
 
-#include "StdAfx.h"
 #include <unordered_map>
 
 class Shader

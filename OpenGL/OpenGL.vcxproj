@@ -93,6 +93,10 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ForcedUsingFiles>
+      </ForcedUsingFiles>
+      <ForcedIncludeFiles>stdafx.h;%(ForceIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\lib;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -107,6 +111,10 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ForcedUsingFiles>
+      </ForcedUsingFiles>
+      <ForcedIncludeFiles>stdafx.h;%(ForceIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\lib;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -123,6 +131,10 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ForcedUsingFiles>
+      </ForcedUsingFiles>
+      <ForcedIncludeFiles>stdafx.h;%(ForceIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -141,6 +153,10 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glm;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glew\include;C:\Users\lpbyk\Documents\Visual Studio 2017\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ForcedUsingFiles>
+      </ForcedUsingFiles>
+      <ForcedIncludeFiles>stdafx.h;%(ForceIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -158,6 +174,12 @@
     <ClCompile Include="src\renderer\VertexArray.cpp" />
     <ClCompile Include="src\renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameTime.h" />
@@ -168,12 +190,11 @@
     <ClInclude Include="src\renderer\VertexBuffer.h" />
     <ClInclude Include="src\renderer\VertexBufferLayout.h" />
     <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\StdAfx.h" />
+    <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\shader.fs" />
     <None Include="res\shaders\shader.vs" />
-    <None Include="res\shaders\testshader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,12 +39,12 @@
     <ClCompile Include="src\FrameTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\StdAfx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\misc\Assert.h">
@@ -68,10 +68,12 @@
     <ClInclude Include="src\FrameTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\shader.vs" />
     <None Include="res\shaders\shader.fs" />
-    <None Include="res\shaders\testshader.vs" />
   </ItemGroup>
 </Project>
